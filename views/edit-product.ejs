@@ -1,0 +1,62 @@
+<%- include('header') %>
+    <div class="container">
+       <form action="" method="POST" role="form" enctype="multipart/form-data">
+        <legend>Form thêm mới</legend>
+       
+        <div class="form-group">
+            <label for="">Tên sản phẩm</label>
+            <input type="text" class="form-control" name="name" placeholder="Input name">
+        </div>
+        <div class="form-group">
+            <label for="">Giá sản phẩm</label>
+            <input type="text" class="form-control" name="price" placeholder="Input name">
+        </div>
+        <div class="form-group">
+            <label for="">Giá KM</label>
+            <input type="text" class="form-control" name="sale_price" placeholder="Input name">
+        </div>
+        <div class="form-group">
+            <label for="">Ảnh SP</label>
+            <input type="file" class="form-control" name="image" placeholder="Input name">
+        </div>
+        <div class="form-group">
+            <label for="">Danh mục sản phẩm</label>
+            
+            <select name="category_id" class="form-control" >
+                <option value="">Chọn danh mục</option>
+            <% cats.forEach((item, key) => { %>
+                <option value="<%= item.id %>"><%= item.name %></option>
+            <% }) %>
+                
+            </select>
+            
+        </div>
+        <div class="form-group">
+            <label for="">Chi tiết sản phẩm</label>
+            <textarea name="description" id="content"class="form-control" ></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Trạng thái danh mục</label>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status"  value="1" checked>
+                    Hiển thị
+                </label>
+            </div>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status"  value="0">
+                    Tạm ẩn
+                </label>
+            </div>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Thêm mới</button>
+       </form>
+       
+        
+    </div>
+    
+<%- include('footer') %>

@@ -1,0 +1,47 @@
+<%- include('header') %>
+
+    <div class="container">
+        <h2>Danh mục</h2>
+        <a href="/create-account" class="btn btn-sm btn-primary">Thêm mới danh mục</a>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach((item, key)=> { %>
+                    <tr>
+                        <td>
+                            <%= item.id %>
+                        </td>
+                        <td>
+                            <%= item.name %>
+                        </td>
+                        <td>
+                            <%= item.email %>
+                        </td>
+                        <td>
+                            <%= item.password %>
+                        </td>
+                       
+                        <td>
+                            <a onclick="return confirm('Chắc chưa?')" href="/delete-account/<%= item.id %>"
+                                class="btn btn-danger">Xóa</a>
+
+                                <a  href="/edit-account/<%= item.id %>"
+                                    class="btn btn-primary">Sửa</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <%- include('footer') %>

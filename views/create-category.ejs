@@ -1,0 +1,36 @@
+<%- include('header') %>
+
+    <div class="container">
+       
+       <form action="" method="POST" role="form">
+        <legend>Form thêm mới danh mục</legend>
+       
+        <div class="form-group">
+            <label for="">Tên danh mục</label>
+            <input type="text" class="form-control" name="name" placeholder="Input name">
+        </div>
+        <div class="form-group">
+            <label for="">Trạng thái danh mục</label>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status"  value="1" checked>
+                    Hiển thị
+                </label>
+            </div>
+            
+            <div class="radio">
+                <label>
+                    <input type="radio" name="status"  value="0">
+                    Tạm ẩn
+                </label>
+            </div>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Thêm mới</button>
+       </form>
+       
+        
+    </div>
+    
+<%- include('footer') %>
