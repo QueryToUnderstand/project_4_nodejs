@@ -1,23 +1,47 @@
 <%- include('header') %>
     <div class="container">
         <h2>Danh sách sản phẩm</h2>
-        <a href="/create-product" class="btn btn-sm btn-primary">Thêm mới danh mục</a>
+        <a href="/create-product" class="btn btn-sm btn-primary">Thêm mới sản phẩm</a>
         <hr>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Sale Price</th>
-                    <th>Status</th>
-                    <th>Image</th>
-                    <th>Description</th>
+                    <th>Mã</th>
+                    <th>Tên SP</th>
+                    <th>Giá</th>
+                    <th>Giá KM</th>
+                    <th>Trạng thái</th>
+                    <th>Ảnh</th>
+                    <th>Mô tả</th>
 
                     <th></th>
                 </tr>
             </thead>
-           
+            <tbody>
+                <% data.forEach((item, key)=> { %>
+                    <tr>
+                        <td><%= item.id %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.price %></td>
+                        <td><%= item.sale_price %></td>
+                        <td>
+                            <%= item.status==0 ? 'Tạm ẩn' : 'Hiển thị' %>
+                        </td>
+                        <td>
+                            <img src="./images/<%= item.image %>" alt="" width="50">
+                        </td>
+                        <td><%= item.description %></td>
+                        <td>
+                            <a onclick="return confirm('Chắc chưa?')" href="/delete-product/<%= item.id %>"
+                                class="btn btn-danger">Xóa</a>        
+                        </td>
+                        <td>
+                            <a  href="/edit-product/<%= item.id %>"
+                                class="btn btn-primary">Sửa</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
         </table>
 
     </div>

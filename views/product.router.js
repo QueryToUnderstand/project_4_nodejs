@@ -49,57 +49,42 @@ module.exports = function (server) {
         });
     })
 
-   // Route để hiển thị trang chỉnh sửa sản phẩm
-server.get('/edit-product/:id', function (req, res) {
-    let productId = req.params.id;
-    let Sql = "SELECT * FROM product WHERE id = ?";
-    db.query(Sql, [productId], function (err, productData) {
-        if (err) {
-            console.log(err);
-            res.redirect('/product');
-        } else {
-            let catSql = "SELECT id, name FROM category Order By name ASC";
-            db.query(catSql, function (err, catData) {
-                if (err) {
-                    console.log(err);
-                    res.redirect('/product');
-                } else {
-                    res.render('edit-product', {
-                        product: productData[0],
-                        cats: catData,
-                    });
-                }
-            });
-        }
-    });
-});
+    server.get('/edit-product/:id', function (req, res) {
+        let id = req.params.id;
+        let sqlProduct = "SELECT * FROM product WHERE id = ?";
+        let sqlCategories = "SELECT * FROM category"; // Giả sử bạn có bảng category
 
- 
-    // server.post('/edit-product/:id', function (req, res) {
-    //     let formData = req.body;
-    //     let id = req.params.id;
-    //     let Sql = "UPDATE product SET ? WHERE id = ?";
-    //     db.query(Sql, [formData, id], function (err, data) {
-    //         if (!err) {
-    //             res.redirect('/product');
-    //         }
-    //     });
-    // })
-    server.post('/edit-product/:id', upload, function (req, res) {
-        let productId = req.params.id;
-        let formData = req.body;
-    
-        if (req.file) {
-            formData.image = req.file.filename;
-        }
-    
-        let Sql = "UPDATE product SET ? WHERE id = ?";
-        db.query(Sql, [formData, productId], function (err, data) {
+        db.query(sqlProduct, [id], function (err, productData) {
             if (err) {
-                console.log(err);
+                return res.status(500).send(err);
+            }
+            if (productData.length > 0) {
+                let product = productData[0];
+                db.query(sqlCategories, function (err, categoryData) {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    res.render('edit-product', {
+                        product: product,
+                        cats: categoryData // Pass the categories data to the template
+                    });
+                });
             } else {
-                res.redirect('/product');
+                return res.status(404).send('Product not found');
             }
         });
     });
+
+ 
+
+    server.post('/edit-product/:id', function (req, res) {
+        let formData = req.body;
+        let id = req.params.id;
+        let Sql = "UPDATE product SET ? WHERE id = ?";
+        db.query(Sql, [formData, id], function (err, data) {
+            if (!err) {
+                res.redirect('/product');
+            }
+        });
+    })
 }

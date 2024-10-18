@@ -1,60 +1,61 @@
+
 <%- include('header') %>
     <div class="container">
-       <form action="" method="POST" role="form" enctype="multipart/form-data">
-        <legend>Form thêm mới</legend>
-       
-        <div class="form-group">
-            <label for="">Tên sản phẩm</label>
-            <input type="text" class="form-control" name="name" placeholder="Input name">
+        <h1>Sửa sản phẩm</h1>
+    <form action="/edit-product/<%= product.id %>" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="name">Name:</label>
+            <input class="form-control" type="text" id="name" name="name" value="<%= product.name %>">
         </div>
-        <div class="form-group">
-            <label for="">Giá sản phẩm</label>
-            <input type="text" class="form-control" name="price" placeholder="Input name">
+        <div>
+            <label for="price">Price:</label>
+            <input class="form-control" type="number" id="price" name="price" value="<%= product.price %>">
         </div>
-        <div class="form-group">
-            <label for="">Giá KM</label>
-            <input type="text" class="form-control" name="sale_price" placeholder="Input name">
+        <div>
+            <label for="sale_price">Sale Price:</label>
+            <input class="form-control" type="number" id="sale_price" name="sale_price" value="<%= product.sale_price %>">
         </div>
-        <div class="form-group">
-            <label for="">Ảnh SP</label>
-            <input type="file" class="form-control" name="image" placeholder="Input name">
-        </div>
-        <div class="form-group">
-            <label for="">Danh mục sản phẩm</label>
-            
-            <select name="category_id" class="form-control" >
-                <option value="">Chọn danh mục</option>
-            <% cats.forEach((item, key) => { %>
-                <option value="<%= item.id %>"><%= item.name %></option>
-            <% }) %>
-                
+        <div>
+            <label for="category">Category:</label>
+            <select class="form-control" id="category" name="category_id">
+                <% cats.forEach(function(cat) { %>
+                    <option value="<%= cat.id %>" <%= product.category_id == cat.id ? 'selected' : '' %>><%= cat.name %></option>
+                <% }); %>
             </select>
-            
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input class="form-control" type="file" id="image" name="image">
+            <% if (product.image) { %>
+                <img src="/images/<%= product.image %>" alt="<%= product.image %>" width="100">
+            <% } %>
         </div>
         <div class="form-group">
             <label for="">Chi tiết sản phẩm</label>
-            <textarea name="description" id="content"class="form-control" ></textarea>
+            <textarea name="description" id="content"class="form-control" value="<%= product.description %>" ></textarea>
         </div>
         <div class="form-group">
-            <label for="">Trạng thái danh mục</label>
-            
+            <label> Status</label>
             <div class="radio">
                 <label>
-                    <input type="radio" name="status"  value="1" checked>
+                    <input type="radio" name="status" value="1" <%= product.status
+                        ==
+                        1 ? 'checked' : '' %> >
                     Hiển thị
                 </label>
             </div>
-            
             <div class="radio">
                 <label>
-                    <input type="radio" name="status"  value="0">
+                    <input type="radio" name="status" value="0" <%= product.status
+                        ==
+                        0 ? 'checked' : '' %>>
                     Tạm ẩn
                 </label>
             </div>
         </div>
-       
-        <button type="submit" class="btn btn-primary">Thêm mới</button>
-       </form>
+        <button type="submit">Sửa</button>
+    </form>
+    
        
         
     </div>

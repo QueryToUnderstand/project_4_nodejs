@@ -48,6 +48,5 @@ INSERT INTO category (name, status) VALUES
 ('Đục',1);
 
 INSERT INTO account (name, email, password, role) VALUES 
-('huynh','huynhkin269@gmail.com','123','customer')
-
-
+('admin','admin@gmail.com','123456','admin'),
+('trung','trung@gmail.com','123','customer')

@@ -7,7 +7,7 @@ server.set('view engine', 'ejs');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.static('public'));
-// tạo các route
+// tạo các routez
 
 require('./routes/account.router')(server);
 const auth = require('./moddleware/auth');
